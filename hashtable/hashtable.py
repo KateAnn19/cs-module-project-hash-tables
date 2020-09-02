@@ -53,6 +53,13 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        total = 0
+        for x in range(len(self.hash_table)):
+            if (self.hash_table[x] != None): 
+                total += 1
+        load = total/self.capacity
+        return load
+            
 
 
     def fnv1(self, key):
@@ -95,6 +102,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # call the load factor to see what the load factor is and resize if necessary
+        load = self.get_load_factor()
+        if(load > 0.7):
+            self.capacity = self.capacity * 2
+            self.resize(self.capacity)
         index = self.hash_index(key)
         new_hash_entry = HashTableEntry(key, value)
         self.hash_table[index] = new_hash_entry
@@ -131,13 +143,26 @@ class HashTable:
 
 
     def resize(self, new_capacity):
+       
+        print(self.capacity)
         """
         Changes the capacity of the hash table and
         rehashes all key/value pairs.
 
         Implement this.
         """
+        print(f"It has resized to: {new_capacity}")
+        new_hash = [None] * new_capacity
         # Your code here
+        for x in range(len(self.hash_table)):
+            if self.hash_table[x] != None:
+                index = self.hash_index(self.hash_table[x].key)
+                new_hash_entry = HashTableEntry(self.hash_table[x].key, self.hash_table[x].value)
+                new_hash[index] = new_hash_entry
+
+        self.hash_table = new_hash
+        
+
 
     def __str__(self):
         for x in self.hash_table:  
@@ -180,3 +205,6 @@ if __name__ == "__main__":
         print(ht.get(f"line_{i}"))
 
     print("")
+
+
+    print(ht.get_load_factor())
