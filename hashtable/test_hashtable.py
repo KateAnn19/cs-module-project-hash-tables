@@ -19,6 +19,8 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-8", "val-8")
         ht.put("key-9", "val-9")
 
+        print(ht.__str__())
+
         return_value = ht.get("key-0")
         self.assertTrue(return_value == "val-0")
         return_value = ht.get("key-1")
@@ -41,7 +43,7 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "val-9")
 
     def test_hash_table_pution_overwrites_correctly(self):
-        ht = HashTable(8)
+        ht = HashTable(10)
 
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
@@ -87,7 +89,7 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "new-val-9")
 
     def test_hash_table_removes_correctly(self):
-        ht = HashTable(8)
+        ht = HashTable(10)
 
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
@@ -131,33 +133,33 @@ class TestHashTable(unittest.TestCase):
         ht.delete("key-0")
 
         return_value = ht.get("key-0")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-1")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-2")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-3")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-4")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-5")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-6")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-7")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-8")
-        self.assertTrue(return_value is "val-8")
+        self.assertTrue(return_value == "val-8")
         return_value = ht.get("key-9")
-        self.assertTrue(return_value is "val-9")
+        self.assertTrue(return_value == "val-9")
 
         ht.delete("key-9")
         ht.delete("key-8")
 
         return_value = ht.get("key-8")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
         return_value = ht.get("key-9")
-        self.assertTrue(return_value is None)
+        self.assertTrue(return_value == None)
 
 if __name__ == '__main__':
     unittest.main()
