@@ -347,7 +347,7 @@ if __name__ == "__main__":
 
     # a hashtable is a dictionary under the hood:
     # the hashtable is made up of these parts:
-        # hash function + index + linked list (basically a node class) + array 
+        # hash function + index + array + linked list (basically a node class)
 
     
 
