@@ -106,11 +106,17 @@ class HashTable:
         if self.hash_table[index] is None:
             self.hash_table[index] = HashTableEntry(key, value)
             self.size += 1
+            if(load < 0.2):
+                self.capacity/2
+                self.downsize(self.capacity)
             return
         # if the key exists then ovverride it 
         elif self.hash_table[index].key == key:
             self.hash_table[index].value = value
-            return 
+            if(load < 0.2):
+                self.capacity/2
+                self.downsize(self.capacity)
+                return 
         # if the first entry is not the key and and entry exists this means it is a linked list and we need to iterate
         else:
             # it is a linked list and we need to iterate
@@ -119,11 +125,17 @@ class HashTable:
                 # looked through everything and didn't find the key so add a new hash entry 
                 if current.key == key:
                     self.hash_table[index].value = current.value
-                    return
+                    if(load < 0.2):
+                        self.capacity/2
+                        self.downsize(self.capacity)
+                        return
                 current = current.next
             # we didn't find it so we need to create a brand new entry 
             current.next = HashTableEntry(key, value)
             self.size += 1
+            if(load < 0.2):
+                self.capacity/2
+                self.downsize(self.capacity)
             return
 
 
@@ -133,6 +145,7 @@ class HashTable:
         Print a warning if the key is not found.
         Implement this.
         """
+        load = self.get_load_factor()
         # Your code here
         # get the index value
         index = self.hash_index(key)
@@ -142,6 +155,11 @@ class HashTable:
         # if there is a value and the key is equal set the node to None
         if(self.hash_table[index].key == key):
             self.hash_table[index] = None
+            self.size -= 1
+            if(load < 0.2):
+                self.capacity/2
+                self.downsize(self.capacity)
+            return 
         # else this means the first value is not the key and there are multiple nodes so iterate
         else:
             # set current to the value 
@@ -152,7 +170,11 @@ class HashTable:
                 if current.key == key:
                     value = current.value
                     self.hash_table[index] = None
+                    self.size -= 1
                     # return the deleted value 
+                    if(load < 0.2):
+                        self.capacity/2
+                        self.downsize(self.capacity)
                     return value
                 # if the key wasn't found then set current to the next node and check that
                 current = current.next
@@ -188,6 +210,36 @@ class HashTable:
         #     return None
         # else find the key and remove it and the valye by setting it to None
         # self.put(key, None)
+    
+    def downsize(self, new_capacity):
+        new_hash = [None] * new_capacity
+        old_hash = self.hash_table
+        # Your code here
+        #loop through the old storage array
+        for x in range(len(old_hash)):
+            # check to see if there is an entry in the index 
+            # placed in variable for ease of understanding
+            current = self.hash_table[x]
+            # if there is something in the index let's rehash it and place it in a new index 
+            if current != None:
+                # now let's check to see if it is a linked list or not
+                # if it is only one value then rehash it
+                if current.next is None:
+                    index = self.hash_index(current.key)
+                    new_hash_entry = HashTableEntry(current.key, current.value)
+                    new_hash[index] = new_hash_entry
+                    self.size += 1
+                # if it has mutiple values then loop and find the right one
+                else: 
+                    while current.next is not None:
+                        # move forward in the linked list and rehash every  entry 
+                        index = self.hash_index(current.key)
+                        new_hash_entry = HashTableEntry(current.key, current.value)
+                        new_hash[index] = new_hash_entry
+                        self.size += 1
+                        current = current.next
+        self.hash_table = new_hash
+
 
 
     def resize(self, new_capacity):
@@ -224,20 +276,6 @@ class HashTable:
                         self.size += 1
                         current = current.next
         self.hash_table = new_hash
-        # for x in old_hash:
-        #     current = x
-        #     #loop through each linked list of entries
-        #     if current.next is None:
-        #         self.put(current.key, current.value)
-        #     while current.next is not None:
-        #         self.put(current.key, current.value)
-        #         #index = self.hash_index(self.hash_table[x].key)
-        #         current = current.next
-        #     self.put(current.key, current.value)
-        #         # new_hash_entry = HashTableEntry(self.hash_table[x].key, self.hash_table[x].value)
-        #         # new_hash[index] = new_hash_entry
-
-        # self.hash_table = new_hash
         
     def __str__(self):
         for x in self.hash_table: 
