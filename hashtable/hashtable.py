@@ -343,6 +343,12 @@ if __name__ == "__main__":
     print("This is line 11", ht.get("line_11"))
     print("This is line 12", ht.get("line_12"))
 
+
+
+    # a hashtable is a dictionary under the hood:
+    # the hashtable is made up of these parts:
+        # hash function + index + linked list (basically a node class) + array 
+
     
 
 
