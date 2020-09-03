@@ -134,11 +134,28 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # get the index value
         index = self.hash_index(key)
+        # if there is nothing in the index return not found
         if(self.hash_table[index] is None):
             return print('Key is not found')
-        self.hash_table[index] = None
-
+        # if there is a value and the key is equal set the node to None
+        if(self.hash_table[index].key == key):
+            self.hash_table[index] = None
+        # else this means the first value is not the key and there are multiple nodes so iterate
+        else:
+            # set current to the value 
+            current = self.hash_table[index]
+            # while the current value has more nodes attached iterate and check to see if keys are equal
+            while current.next is not None or current.key is not key:
+                # when the key is found then set the node to None
+                if current.key == key:
+                    self.hash_table[index] = None
+                    return
+                # if the key wasn't found then set current to the next node and check that
+                current = current.next
+            # else it was never found 
+            return "Not found"
 
     def get(self, key):
         """
