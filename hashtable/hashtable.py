@@ -150,8 +150,10 @@ class HashTable:
             while current.next is not None or current.key is not key:
                 # when the key is found then set the node to None
                 if current.key == key:
+                    value = current.value
                     self.hash_table[index] = None
-                    return
+                    # return the deleted value 
+                    return value
                 # if the key wasn't found then set current to the next node and check that
                 current = current.next
             # else it was never found 
