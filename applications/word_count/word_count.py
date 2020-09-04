@@ -23,6 +23,37 @@ def letter_count(s):
 # print(letter_count("The quick brown fox jumps over the lazy dog"))
 
 
+def double_letter(s):
+    d = {}
+    #################################
+    # could do this with a set
+    # d = set ()
+    #################################
+    # store letters as keys and a counter as value
+    # Find all letters, for just the one letter where value > 1
+    for char in s:
+        if char.isspace():
+            continue
+        if char not in d:
+            d[char] = 1
+            # if it were a set it would be d.add(char) and no setting to 1 
+        else:
+            d[char] += 1
+            # could just return char here and element what's below 
+            # if it were a set it would be return char and no adding 
+
+    for key,value in d.items(): 
+       #items returns a list of tuples 
+       if value == 2:
+           return "This is the key", key
+
+
+
+
+
+print(double_letter("abddeef")) # output is 'e'
+
+
 
 ################################################################################################################
 # Start of Project - Practice Above 
@@ -51,7 +82,6 @@ def letter_count(s):
 
 
 
-
 def word_count(s):
     # Your code here
     refact_str = re.sub("[^\w']", " ", s.lower()).split()
@@ -63,8 +93,6 @@ def word_count(s):
         else:
             d[word] += 1
     return d
-
-
 
 
 

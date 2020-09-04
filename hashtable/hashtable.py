@@ -288,6 +288,16 @@ class HashTable:
                         x = x.next
                 else:
                     print(f"KEY {x.key}, {x.value}")
+
+    # Artem gave this function as an example. I may want to refactor to use these built-in methods 
+    # def insert_or_overwrite_value(self, value):
+    #     node = self.find(value)
+    #     if node is None:
+    #         # Make a new node
+    #         self.insert_at_neadh(Node(value))
+    #     else:
+    #         # overwrite old value
+    #         node.value = value
         
 
 
