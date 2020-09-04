@@ -1,6 +1,8 @@
 # Your code here
 import math
 
+import random 
+
 # similar to memoization
 # similar to how we looked things up in a hashtable 
 
@@ -36,30 +38,56 @@ print(sqrt_lookup_table[356])
 
 
 
-
 def slowfun_too_slow(x, y):
     # x represents the base and y represents the exponent - this returns the value of x raised to power y 
-    v = math.pow(x, y)
+    pass
+    
     # this gives a single ouput number that is the factorial of v and v is the x raised to power of y
-    v = math.factorial(v)
+    # if (x,y) not in factorials:
+    #     factorials[x,y] = math.factorial(v)
+    #     v = factorials[x,y]
+    # else:
+    #     v = factorials[x,y] 
+        
+    
+    
     # this is floor division. It says v equals v (which we now have the factorial of) divided by (x + y) (rounds results down to nearest whole numebr)
-    v //= (x + y)
+    # if (x,y) not in division:
+    #     division[x,y] = v //(x+y)
+    #     v = division[x,y]
+    # else:
+    #     v = division[x,y]
+    
     # now v has been divided by x + y and rounded down. Now we take v and mod it by this number 
-    v %= 982451653
+    # if (x,y) not in modulos:
+    #     modulos[x,y] = v % 982451653
+    #     v = modulos[x,y]
+    # else:
+    #     v = modulos[x,y] 
 
     # if we want to create a lookup table what would it look like?
-        # it would have key/value pairs. Keys could be x,y and value would be the result of all these operations 
-
-    return v
+        # it would have key/value pairs. Keys could be x,y and value would be V
+    #return v
+powers = {}
+factorials = {} 
+division = {}
+results = {}
 
 def slowfun(x, y):
     """
     Rewrite slowfun_too_slow() in here so that the program produces the same
     output, but completes quickly instead of taking ages to run.
     """
-    # Your code here
+    if (x,y) not in results:
+        if (x,y) not in powers:
+            powers[x,y] = math.pow(x, y)
+            factorials[x,y] = math.factorial(powers[x,y])
+            division[x,y] = (factorials[x,y])//(x+y)
+            results[x,y] = (division[x,y]) % 982451653
 
-
+    return results[x,y]
+    
+    
 
 # Do not modify below this line!
 
